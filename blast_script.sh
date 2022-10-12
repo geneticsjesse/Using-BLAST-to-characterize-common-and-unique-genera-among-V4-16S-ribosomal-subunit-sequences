@@ -16,9 +16,19 @@ blastn -query PM_1.txt -db reference.fa -outfmt "6 qseqid stitle bitscore" -max_
 # This ensures we don't overestimate the number of unique/shared genera between the distal lumen and proximal mucosa due to differences in strings that do not reflect true different genera
 sed -E 's/([A-Z]+_[0-9]+\t[A-Za-z_ /0-9]+)_[0-9]+(\t[0-9]+)/\1\2/g' DL_match_uncleaned.txt > DL_match_clean.txt
 
+# Using sed and looking at only the second match to ensure methods align
+sed 's/_[0-9]//2' DL_match_uncleaned.txt > DL_match_clean2.txt
+
 # Using sed to remove the _n from the genera names within the proximal mucosa and writing that to a new file called PM_match_clean.txt
 # This ensures we don't overestimate the number of unique/shared genera between the distal lumen and proximal mucosa due to differences in strings that do not reflect true different genera
 sed -E 's/([A-Z]+_[0-9]+\t[A-Za-z_ /0-9]+)_[0-9]+(\t[0-9]+)/\1\2/g' PM_match_uncleaned.txt > PM_match_clean.txt
+
+# Using sed and looking at only the second match to ensure methods align
+sed 's/_[0-9]//2' PM_match_uncleaned.txt > PM_match_clean2.txt
+
+# Using cmp to ensure DL/PM_match_clean.txt and DL/PM_match_clean2.txt were identical
+cmp --silent DL_match.txt DL_test.txt || echo "files are different"
+cmp --silent PM_match.txt PM_test.txt || echo "files are different"
 
 # Once I verified that the _clean.txt files had no _n's after the genus name and any roman numerals and digits preceeding the underscore were retained, I moved the contents of the DL/PM_match_clean.txt files to DL/PM_match.txt
 mv DL_match_clean.txt DL_match.txt
