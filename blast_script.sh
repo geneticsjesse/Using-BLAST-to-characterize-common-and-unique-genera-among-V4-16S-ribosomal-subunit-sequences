@@ -1,3 +1,8 @@
+# Load relevant packages
+module load StdEnv/2020
+module load gcc/9.3.0
+module load blast+/2.12.0
+
 # Creating a new database from our new_reference.ft file
 makeblastdb -in new_reference.ft -dbtype nucl -input_type fasta -out reference.fa
 
