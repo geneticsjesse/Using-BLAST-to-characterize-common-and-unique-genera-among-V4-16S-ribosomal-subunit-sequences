@@ -1,5 +1,3 @@
-# BINF6410 Assignment 1 - Jesse Wolf 0830233
-
 # Creating a new database from our new_reference.ft file
 makeblastdb -in new_reference.ft -dbtype nucl -input_type fasta -out reference.fa
 
@@ -25,19 +23,15 @@ mv PM_match_clean.txt PM_match.txt
 
 # Using sed to look for line breaks after using cat -vet DL_1.txt to identify the delimeter as ^M and replacing them with a new line, counting all of the lines using grep, and then writing that to a new file
 sed 's/^M/\n/g' DL_1.txt | grep '^>' | wc -l > DL_count.txt
-692 DL_match_clean_count.txt
 
 # Using the combination of cat and grep to perform the sequence count a different way to ensure methods align
 cat DL_1.txt | grep -o ASV | wc -l
-692
 
 # Using sed to look for line breaks after using cat -vet DL_1.txt to identify the delimeter as ^M and replacing them with a new line, counting all of the lines, and then writing that to a new file
 sed 's/^M/\n/g' PM_1.txt | grep '^>' | wc -l > PM_count.txt
-952 PM_count.txt
 
 # Using the combination of cat and grep to perform the sequence count a different way to ensure methods align
 cat PM_1.txt | grep -i -o ASV | wc -l
-952
 
 # Question 2
 
@@ -62,21 +56,18 @@ grep -vf PM_match_unique.txt DL_match_unique.txt > DL_unique.txt
 
 # Counting the lines/number of unique values in DL_unique.txt and writing that to a new file
 wc -l DL_unique.txt > DL_unique_count.txt
-20 DL_unique.txt
 
 # Using grep, the -v parameter to select non matching lines, and the -f parameter to take patterns from a file (in this case DL_match_unique.txt) and look for any non-matching patterns in PM_match_unique.txt and writing that to a new file to determine the genera unique to the proximal mucosa
 grep -vf DL_match_unique.txt PM_match_unique.txt > PM_unique.txt
 
 # Counting the lines/number of unique values in PM_unique.txt and writing that to a new file
 wc -l PM_unique.txt > PM_unique_count.txt
-24 PM_unique.txt
 
 # Using grep and the -f parameter to take patterns from a file (in this case DL_match_unique.txt) and look for any patterns in PM_match_unique.txt and writing that to a new file to determine the shared genera between the distal lumen and proximal mucosa
 grep -f DL_match_unique.txt PM_match_unique.txt > DL_PM_common.txt
 
 # Counting the lines/number of unique values in DL_PM_common.txt and writing that to a new file
 wc -l DL_PM_common.txt > DL_PM_common_count.txt
-129 DL_PM_common.txt
 
 # Question 5
 
